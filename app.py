@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 # Load trained model
-model = joblib.load(Path("models/model.pkl"))
+model = joblib.load(Path("model.pkl"))
 
 app = Flask(__name__)
 
