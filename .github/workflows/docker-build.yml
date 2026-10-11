@@ -65,9 +65,12 @@ jobs:
       with:
         name: model
         path: . # 👈 downloads model.pkl into current dir
+    - name: Normalize image repository name
+      id: image
+      run: echo "repository=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.repository }}/ml-flask-app:latest
+        tags: ghcr.io/${{ steps.image.outputs.repository }}/ml-flask-app:latest
