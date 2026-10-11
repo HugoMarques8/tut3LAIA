@@ -65,9 +65,13 @@ jobs:
       with:
         name: model
         path: . # 👈 downloads model.pkl into current dir
+    - name: Set Docker image name
+      run: |
+        IMAGE_NAME="ghcr.io/$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')/ml-flask-app:latest"
+        echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_ENV"
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.repository }}/ml-flask-app:latest
+        tags: ${{ env.IMAGE_NAME }}
